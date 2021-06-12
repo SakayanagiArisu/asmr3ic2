@@ -157,7 +157,6 @@ class Main {
                                             let div = document.createElement('div');
                                             div.id = 'victory';
                                             div.classList.add("victory")
-											console.log(data.historia_meczy.length==1, [2,3,4].includes(data.historia_meczy.length))
                                             div.innerText = 'Gracz drugi odgadł twoją kombinacje w ' + data.historia_meczy.length + (data.historia_meczy.length==1?' rundę':[2,3,4].includes(data.historia_meczy.length)?' rundy':' rund') +'!\nGra wkrótce się zamknie';
                                             overlay.appendChild(div)
                                             clearInterval(this.inter)
@@ -267,7 +266,7 @@ class Main {
                                             let div = document.createElement('div');
                                             div.id = 'victory';
                                             div.classList.add("victory")
-                                            div.innerText = 'Gratulacje!\nOdgadłeś poprawnie kombinacje w ' + data.historia_meczy.length + ' rund!';
+                                            div.innerText = 'Gratulacje!\nOdgadłeś poprawnie kombinacje w ' + data.historia_meczy.length + (data.historia_meczy.length==1?' rundę':[2,3,4].includes(data.historia_meczy.length)?' rundy':' rund') +'!';
                                             overlay.appendChild(div)
                                         } else {
                                             let div = document.createElement('div');
