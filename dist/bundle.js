@@ -110,7 +110,7 @@ class Main {
                                     document.body.append(historia);
                                 }
                                 //console.log(data)
-                                document.getElementById("historia").innerHTML = ""
+                                if(document.getElementById("historia")) document.getElementById("historia").innerHTML = "";
                                 for (let i = data.historia_meczy.length - 1; i >= 0; i--) {
                                     let kontener = document.createElement('div');
                                     kontener.classList.add("kontener")
@@ -218,7 +218,7 @@ class Main {
                                     document.body.append(historia);
                                 }
                                 if (this.ingame == true) {
-                                    document.getElementById("historia").innerHTML = ""
+                                    document.getElementById("historia").innerHTML = "";
                                     for (let i = data.historia_meczy.length - 1; i >= 0; i--) {
                                         let kontener = document.createElement('div');
                                         kontener.classList.add("kontener")
