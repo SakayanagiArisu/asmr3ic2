@@ -13,7 +13,7 @@ var gameData = new Datastore({
 })
 app.use(express.static('dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
-const max_prob = 4
+const max_prob = 10;
 app.post('/first', function (req, response) {//to się dzieje po wejściu na adres jako pierwsze
     let time = req.body.time;
     let res;
