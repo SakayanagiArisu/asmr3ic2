@@ -44,14 +44,12 @@ class Main {
         this.container = container;
         this.scene = new three__WEBPACK_IMPORTED_MODULE_11__.Scene();
         this.renderer = new _Renderer__WEBPACK_IMPORTED_MODULE_0__.default(container);
-        this.camera = new _Camera__WEBPACK_IMPORTED_MODULE_1__.default(75, window.innerWidth / 2, window.innerHeight / 2, this.renderer);
+        this.camera = new _Camera__WEBPACK_IMPORTED_MODULE_1__.default(75, window.innerWidth / 2, window.innerHeight / 2, renderer);
         this.manager = new three__WEBPACK_IMPORTED_MODULE_11__.LoadingManager();
         this.player = new _Model__WEBPACK_IMPORTED_MODULE_3__.default(this.scene, this.manager);//stworzenie modelu gracza i poniżej jego załadowanie
         this.player.load(_assets_knight_md2__WEBPACK_IMPORTED_MODULE_7__);
         this.playerNumber = null;//to jest zmienna mówiąca, czy jesteś graczem 1, czy 2
-        this.light = new three__WEBPACK_IMPORTED_MODULE_11__.DirectionalLight('white', 1.3);
-        this.light.position.set(1, 1, 1);
-        this.light.castShadow = true;
+        this.light = new three__WEBPACK_IMPORTED_MODULE_11__.AmbientLight('white', 1);
         this.scene.add(this.light);
         this.plane = new _Plane__WEBPACK_IMPORTED_MODULE_2__.default();//podłoga
         this.scene.add(this.plane);
@@ -79,7 +77,7 @@ class Main {
             this.animation.playAnim("stand");
             this.keyboard = new _Keyboard__WEBPACK_IMPORTED_MODULE_4__.default(window, this.animation, this.player.mesh, this.colorsManager);
         };
-        fetch('http://localhost:3000/first', {//tutaj jest to pierwsze zapytanie
+        fetch('https://asmr3ic2.herokuapp.com/first', {//tutaj jest to pierwsze zapytanie
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -92,7 +90,7 @@ class Main {
                 this.colorsManager.playerNumber = data.status;
                 if (data.status == 1) {//jeśli jesteś graczem pierszym, zaczyna interwał
                     this.inter = setInterval(() => {
-                        fetch('http://localhost:3000/check', {
+                        fetch('https://asmr3ic2.herokuapp.com/check', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -111,7 +109,7 @@ class Main {
                                     historia.id = 'historia';
                                     document.body.append(historia);
                                 }
-                                console.log(data)
+                                //console.log(data)
                                 document.getElementById("historia").innerHTML = ""
                                 for (let i = data.historia_meczy.length - 1; i >= 0; i--) {
                                     let kontener = document.createElement('div');
@@ -148,9 +146,9 @@ class Main {
                                     document.getElementById("historia").appendChild(kontener)
                                 }
                                 if (data.historia_meczy.length > 0) {
-                                    console.log("Sprawdzam wygrana")
+                                    //console.log("Sprawdzam wygrana")
                                     if (data.historia_meczy[0].doskonale == 4 || data.historia_meczy.length == data.max_prob) {
-                                        console.log("Tworze overlay")
+                                        //console.log("Tworze overlay")
                                         let overlay = document.createElement('div');
                                         overlay.classList.add("overlay")
                                         document.body.appendChild(overlay)
@@ -162,8 +160,8 @@ class Main {
                                             div.innerText = 'Gracz drugi odgadł twoją kombinacje w ' + data.historia_meczy.length + ' rund!\nGra wkrótce się zamknie';
                                             overlay.appendChild(div)
                                             clearInterval(this.inter)
-                                            console.log("Clearuje wynik")
-                                            fetch('http://localhost:3000/finish', {
+                                            //console.log("Clearuje wynik")
+                                            fetch('https://asmr3ic2.herokuapp.com/finish', {
                                                 method: 'POST',
                                                 headers: {
                                                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -177,7 +175,7 @@ class Main {
                                             div.innerText = 'Graczowi drugiemu nie udało się odgadnąć twojej kombinacji!\nGra wkrótce się zamknie';
                                             overlay.appendChild(div)
                                             clearInterval(this.inter)
-                                            fetch('http://localhost:3000/finish', {
+                                            fetch('https://asmr3ic2.herokuapp.com/finish', {
                                                 method: 'POST',
                                                 headers: {
                                                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -192,7 +190,7 @@ class Main {
                     this.render();
                 } else if (data.status == 2) {//jeśli jesteś graczem drugim, zaczyna lekko inny interwał
                     this.inter = setInterval(() => {
-                        fetch('http://localhost:3000/check', {
+                        fetch('https://asmr3ic2.herokuapp.com/check', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -201,7 +199,7 @@ class Main {
                         })
                             .then(response => response.json())
                             .then(data => {
-                                console.log(data)
+                                //console.log(data)
                                 if (this.playerData != data.playerData) this.playerData = data.playerData;//analogicznie jak u gracza pierwszego
                                 if (this.gameData != data.gameData) this.gameData = data.gameData;
                                 if (this.playerData[0].status === 'starting' && !document.getElementById('waiting')) {//jeśli jest status starting, gracz jeszcze nie zaczyna rozgrywki
@@ -277,7 +275,7 @@ class Main {
                                             div.innerText = 'Niestety!\nNie odgadłeś poprawnie kombinacje w ' + data.max_prob + ' rund!';
                                             overlay.appendChild(div)
                                         }
-                                        fetch('http://localhost:3000/finish', {
+                                        fetch('https://asmr3ic2.herokuapp.com/finish', {
                                             method: 'POST',
                                             headers: {
                                                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -386,8 +384,6 @@ class Renderer extends three__WEBPACK_IMPORTED_MODULE_0__.WebGLRenderer {
         this.container = container
 
         this.container.appendChild(this.domElement);
-        this.shadowMap.enabled = true;
-        this.shadowMap.type = three__WEBPACK_IMPORTED_MODULE_0__.PCFSoftShadowMap;
 
         // resize
 
@@ -49861,7 +49857,6 @@ class Plane extends three__WEBPACK_IMPORTED_MODULE_1__.Mesh{
             side: three__WEBPACK_IMPORTED_MODULE_1__.DoubleSide,
             map: material
         }));
-        this.receiveShadow = true;
         this.rotateX(Math.PI / 2);
     }
 }
@@ -49918,7 +49913,6 @@ class Model {
                 let box = new three__WEBPACK_IMPORTED_MODULE_2__.Box3().setFromObject( this.mesh );
                 this.mesh.position.y = box.getSize().y / 2;
                 this.mesh.rotateY(Math.PI/2);
-                this.mesh.castShadow = true;
                 this.scene.add(this.mesh);
 
             },
@@ -50516,7 +50510,6 @@ class SquareButton extends three__WEBPACK_IMPORTED_MODULE_0__.Mesh{
         let x = [0,4].includes(num) ? -105 : [1,5].includes(num) ? -60 : [2,6].includes(num) ? 60 : 105;
         this.position.set(x, 1, num > 3 ? 10 : -40);
         this.scene = scene;
-        this.receiveShadow = true;
         this.scene.add(this);
     }
 }
@@ -50583,7 +50576,7 @@ class ColorsManager {
         } else if (this.onAccept) {//jeśli stoisz na przycisku na środku
             if (this.currentColors.includes(null) || (this.playerNumber == 1 && this.sent)) return;//jeśli nie wszystkie kolory zostały wybrane, lub gracz pierwszy wysłał kombiancję, nic się nie dzieje
             this.sent = true;//ważne dla pierwszego gracz, oznacz że odesłał swoją wiadomość
-            fetch('http://localhost:3000/color', {//wysłanie informacji do serwera z kombinacją kolorów
+            fetch('https://asmr3ic2.herokuapp.com/color', {//wysłanie informacji do serwera z kombinacją kolorów
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -50663,7 +50656,6 @@ class AcceptButton extends three__WEBPACK_IMPORTED_MODULE_0__.Mesh{
         this.rotateX(Math.PI / 2);
         this.position.set(0, 1, -30);
         this.scene = scene;
-        this.receiveShadow = true;
         this.scene.add(this);
     }
 }
