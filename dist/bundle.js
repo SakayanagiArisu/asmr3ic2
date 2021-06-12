@@ -44,7 +44,7 @@ class Main {
         this.container = container;
         this.scene = new three__WEBPACK_IMPORTED_MODULE_11__.Scene();
         this.renderer = new _Renderer__WEBPACK_IMPORTED_MODULE_0__.default(container);
-        this.camera = new _Camera__WEBPACK_IMPORTED_MODULE_1__.default(75, window.innerWidth / 2, window.innerHeight / 2, renderer);
+        this.camera = new _Camera__WEBPACK_IMPORTED_MODULE_1__.default(75, window.innerWidth / 2, window.innerHeight / 2, this.renderer);
         this.manager = new three__WEBPACK_IMPORTED_MODULE_11__.LoadingManager();
         this.player = new _Model__WEBPACK_IMPORTED_MODULE_3__.default(this.scene, this.manager);//stworzenie modelu gracza i poniżej jego załadowanie
         this.player.load(_assets_knight_md2__WEBPACK_IMPORTED_MODULE_7__);
