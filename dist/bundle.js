@@ -36,6 +36,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+//const URL = 'https://asmr3ic2.herokuapp.com/';
+const URL = 'http://localhost:3000/';
+
 class Main {
     constructor(container) {
         //no to teraz zaczyna się najtrudniejsza część do wytłumaczenia
@@ -77,7 +80,7 @@ class Main {
             this.animation.playAnim("stand");
             this.keyboard = new _Keyboard__WEBPACK_IMPORTED_MODULE_4__.default(window, this.animation, this.player.mesh, this.colorsManager);
         };
-        fetch('https://asmr3ic2.herokuapp.com/first', {//tutaj jest to pierwsze zapytanie
+        fetch(URL+'first', {//tutaj jest to pierwsze zapytanie
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -90,7 +93,7 @@ class Main {
                 this.colorsManager.playerNumber = data.status;
                 if (data.status == 1) {//jeśli jesteś graczem pierszym, zaczyna interwał
                     this.inter = setInterval(() => {
-                        fetch('https://asmr3ic2.herokuapp.com/check', {
+                        fetch(URL+'check', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -161,7 +164,7 @@ class Main {
                                             overlay.appendChild(div)
                                             clearInterval(this.inter)
                                             //console.log("Clearuje wynik")
-                                            fetch('https://asmr3ic2.herokuapp.com/finish', {
+                                            fetch(URL+'finish', {
                                                 method: 'POST',
                                                 headers: {
                                                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -175,7 +178,7 @@ class Main {
                                             div.innerText = 'Graczowi drugiemu nie udało się odgadnąć twojej kombinacji!\nGra wkrótce się zamknie';
                                             overlay.appendChild(div)
                                             clearInterval(this.inter)
-                                            fetch('https://asmr3ic2.herokuapp.com/finish', {
+                                            fetch(URL+'finish', {
                                                 method: 'POST',
                                                 headers: {
                                                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -190,7 +193,7 @@ class Main {
                     this.render();
                 } else if (data.status == 2) {//jeśli jesteś graczem drugim, zaczyna lekko inny interwał
                     this.inter = setInterval(() => {
-                        fetch('https://asmr3ic2.herokuapp.com/check', {
+                        fetch(URL+'check', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -275,7 +278,7 @@ class Main {
                                             div.innerText = 'Niestety!\nNie odgadłeś poprawnie kombinacje w ' + data.max_prob + ' rund!';
                                             overlay.appendChild(div)
                                         }
-                                        fetch('https://asmr3ic2.herokuapp.com/finish', {
+                                        fetch(URL+'finish', {
                                             method: 'POST',
                                             headers: {
                                                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -50533,6 +50536,8 @@ const Colors = [
     'purple',
     'grey'
 ];
+//const URL = 'https://asmr3ic2.herokuapp.com/';
+const URL = 'http://localhost:3000/';
 
 class ColorsManager {
     kontener_listy_prob(kontener_listy_prob) {
@@ -50576,7 +50581,7 @@ class ColorsManager {
         } else if (this.onAccept) {//jeśli stoisz na przycisku na środku
             if (this.currentColors.includes(null) || (this.playerNumber == 1 && this.sent)) return;//jeśli nie wszystkie kolory zostały wybrane, lub gracz pierwszy wysłał kombiancję, nic się nie dzieje
             this.sent = true;//ważne dla pierwszego gracz, oznacz że odesłał swoją wiadomość
-            fetch('https://asmr3ic2.herokuapp.com/color', {//wysłanie informacji do serwera z kombinacją kolorów
+            fetch(URL+'color', {//wysłanie informacji do serwera z kombinacją kolorów
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -50974,7 +50979,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\r\n    margin: 0;\r\n    width: 100vw;\r\n    height: 100vh;\r\n}\r\n\r\n#wait {\r\n    position: absolute;\r\n    width: 200px;\r\n    left: calc(50% - 100px);\r\n    height: 40px;\r\n    top: calc(50% - 20px);\r\n    text-align: center;\r\n}\r\n\r\n#waiting {\r\n    position: absolute;\r\n    width: 1000px;\r\n    text-align: center;\r\n    left: calc(50% - 500px);\r\n    top: 0;\r\n    font-size: 70px;\r\n    background-color: white;\r\n}\r\n\r\n#colors {\r\n    position: absolute;\r\n    width: 420px;\r\n    left: calc(50% - 210px);\r\n    top: 0;\r\n    display: flex;\r\n    justify-content: space-around;\r\n    align-items: center;\r\n    height: 120px;\r\n}\r\n#historia{\r\n\tposition:absolute;\r\n\ttop:5px;\r\n    left:5px;\r\n    border: 2px solid black;\r\n}\r\n#proba{\r\n\theight:10px;\r\n\twidth:10px;\r\n\tmargin:2px;\r\n}\r\n.color {\r\n    height: 80px;\r\n    width: 80px;\r\n    border: solid 2px;\r\n}\r\n.pole{\r\n    height : 10px;\r\n    width : 10px;\r\n    margin : 2px;\r\n    float : left;\r\n}\r\n#victory{\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 50%;\r\n    font-size: 50px;\r\n    color: white;\r\n    transform: translate(-50%,-50%);\r\n    -ms-transform: translate(-50%,-50%);\r\n}\r\n.kontener{\r\n    height: fit-content;\r\n    width: 126px;\r\n    height: 14px;\r\n}\r\n.overlay{\r\n    position: fixed; /* Sit on top of the page content */\r\n    display: block; /* Hidden by default */\r\n    width: 100%; /* Full width (cover the whole page) */\r\n    height: 100%; /* Full height (cover the whole page) */\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    bottom: 0;\r\n    background-color: rgba(0,0,0,0.5); /* Black background with opacity */\r\n    z-index: 4; /* Specify a stack order in case you're using a different order for other elements */\r\n    cursor: pointer;\r\n    text-align: center;\r\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\r\n    margin: 0;\r\n    width: 100vw;\r\n    height: 100vh;\r\n}\r\n\r\n#wait {\r\n    position: absolute;\r\n    width: 200px;\r\n    left: calc(50% - 100px);\r\n    height: 40px;\r\n    top: calc(50% - 20px);\r\n    text-align: center;\r\n}\r\n\r\n#waiting {\r\n    position: absolute;\r\n    width: 1000px;\r\n    text-align: center;\r\n    left: calc(50% - 500px);\r\n    top: 0;\r\n    font-size: 70px;\r\n    background-color: white;\r\n}\r\n\r\n#colors {\r\n    position: absolute;\r\n    width: 420px;\r\n    left: calc(50% - 210px);\r\n    top: 0;\r\n    display: flex;\r\n    justify-content: space-around;\r\n    align-items: center;\r\n    height: 120px;\r\n}\r\n#historia{\r\n\tposition:absolute;\r\n\ttop:5px;\r\n    left:5px;\r\n    border: 2px solid black;\r\n}\r\n#proba{\r\n\theight:40px;\r\n\twidth:40px;\r\n\tmargin:5px;\r\n}\r\n.color {\r\n    height: 80px;\r\n    width: 80px;\r\n    border: solid 2px;\r\n}\r\n.pole{\r\n    height : 10px;\r\n    width : 10px;\r\n    margin : 2px;\r\n    float : left;\r\n}\r\n#victory{\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 50%;\r\n    font-size: 50px;\r\n    color: white;\r\n    transform: translate(-50%,-50%);\r\n    -ms-transform: translate(-50%,-50%);\r\n}\r\n.kontener{\r\n    height: fit-content;\r\n    width: 450px;\r\n    height: 50px;\r\n}\r\n.overlay{\r\n    position: fixed; /* Sit on top of the page content */\r\n    display: block; /* Hidden by default */\r\n    width: 100%; /* Full width (cover the whole page) */\r\n    height: 100%; /* Full height (cover the whole page) */\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    bottom: 0;\r\n    background-color: rgba(0,0,0,0.5); /* Black background with opacity */\r\n    z-index: 4; /* Specify a stack order in case you're using a different order for other elements */\r\n    cursor: pointer;\r\n    text-align: center;\r\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
