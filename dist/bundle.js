@@ -36,8 +36,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//const URL = 'https://asmr3ic2.herokuapp.com/';
-const URL = 'http://localhost:3000/';
+const URL = 'https://asmr3ic2.herokuapp.com/';
+//const URL = 'http://localhost:3000/';
 
 class Main {
     constructor(container) {
@@ -50536,8 +50536,8 @@ const Colors = [
     'purple',
     'grey'
 ];
-//const URL = 'https://asmr3ic2.herokuapp.com/';
-const URL = 'http://localhost:3000/';
+const URL = 'https://asmr3ic2.herokuapp.com/';
+//const URL = 'http://localhost:3000/';
 
 class ColorsManager {
     kontener_listy_prob(kontener_listy_prob) {
